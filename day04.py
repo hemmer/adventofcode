@@ -1,21 +1,21 @@
 #!/usr/bin/env python
 
-import numpy as np
-import scipy as sp
-
-import hashlib
-
+from hashlib import md5
 
 key = 'iwrupvqb'
+part_a = True
 
 for i in xrange(20000000):
-    string="%s%07d" % (key, i)
+    string="%s%d" % (key, i)
 
-    m = hashlib.md5()
+    m = md5()
     m.update(string)
     hh = m.hexdigest()
 
-    if hh[:6] == "000000":
-        print i, hh, string
-        break
+    if part_a and hh[:5] == "00000":
+        print "part a:", i, hh, string
+        part_a = False
 
+    if not part_a and hh[:6] == "000000":
+        print "part b:", i, hh, string
+        break

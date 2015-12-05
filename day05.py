@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 
-import numpy as np
-import scipy as sp
-
 input_str='''
 zgsnvdmlfuplrubt
 vlhagaovgqjmgvwq

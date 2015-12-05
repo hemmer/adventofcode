@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 
-import numpy as np
-import scipy as sp
-
 presents=\
 '''20x3x11
 15x27x5
