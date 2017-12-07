@@ -14,13 +14,13 @@ def sol(data):
             data[(1 + argmax + i) % N] += 1
 
         count += 1
-        s = ' '.join(map(str, data))
-        sols[s] += 1
+        sols[tuple(data)] += 1
+        max_num_occur = sols.most_common(1)[0][1]
 
-        if not count_p1 and sols.most_common(1)[0][1] > 1:
+        if not count_p1 and max_num_occur > 1:
             count_p1 = count
 
-        if count_p1 and sols.most_common(1)[0][1] > 2:
+        if count_p1 and max_num_occur > 2:
             count_p2 = count - count_p1
             break
 
