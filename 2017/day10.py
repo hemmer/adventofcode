@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 
-import numpy as np
-import scipy as sp
-
 class CircList(object):
     def __init__(self, l):
         self.l = l
@@ -28,10 +25,7 @@ class CircList(object):
         return self.l
 
 
-def part1(l, seq, pos = 0, skip_size = 0, extra = []):
-
-    for e in extra:
-        seq.append(e)
+def hash_pass(l, seq, pos = 0, skip_size = 0):
 
     N = len(l)
     a = CircList(l)
@@ -45,25 +39,29 @@ def part1(l, seq, pos = 0, skip_size = 0, extra = []):
     return vals[0] * vals[1], pos, skip_size, vals
 
 sample = [3, 4, 1, 5]
-assert(part1(range(5), sample)[0] == 12)
+assert(hash_pass(range(5), sample)[0] == 12)
 
 
 for line in open("day10.in"):
     seq = line.rstrip('\n').split(',')
     seq = map(int, seq)
-    print part1(range(256), seq)[0]
+    print "answer (part 1):", hash_pass(range(256), seq)[0]
 
+    # convert every character to its ASCII value
     seq = [ord(c) for c in line.rstrip('\n')]
     extra = [17, 31, 73, 47, 23]
+    for e in extra:
+        seq.append(e)
 
+    # apply 64 passes of the hashing algorithm
     l, pos, skip_size = range(256), 0, 0
     for p in range(64):
-        _, pos, skip_size, l = part1(l, seq, pos, skip_size, extra)
+        _, pos, skip_size, l = hash_pass(l, seq, pos, skip_size)
 
-    print l
+    # then condense down 16 blocks of 16 using the XOR operator
     xored = ""
     for i in range(16):
         bit = l[i*16:(i+1)*16]
         xored += format(reduce(lambda i, j: int(i) ^ int(j), bit), '02x')
-    print xored
+    print "answer (part 2):", xored
 
