@@ -46,4 +46,3 @@ for l in open("day09.in"):
     sol = parseline(l)
     print "answer (part 1):", sol[0]
     print "answer (part 2):", sol[1]
-

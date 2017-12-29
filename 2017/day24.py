@@ -46,6 +46,3 @@ assert(solution(part = 2, filename = "day24.in2") == 19)
 
 print "answer (part 1):", solution(part = 1)
 print "answer (part 2):", solution(part = 2)
-
-
-

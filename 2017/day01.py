@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 
-import numpy as np
-import scipy as sp
-
 def part1(s):
     total, prev = 0, s[-1]
 

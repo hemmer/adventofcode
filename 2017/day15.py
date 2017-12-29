@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-
 class Generator():
     def __init__(self, start, factor, criterion = 0):
         self.val = start
@@ -40,7 +39,6 @@ if do_tests:
     assert(sum(1 for i in range(N) if gA.next_picky() == gB.next_picky())
             == 309)
     print "Tests passed!"
-
 
 
 startA, startB = 277, 349

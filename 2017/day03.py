@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 
-import numpy as np
-import scipy as sp
-
 dirs = [+1, 0, -1, 0]
 
 def part1(N):

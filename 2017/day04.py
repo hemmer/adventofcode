@@ -13,4 +13,3 @@ for line in open('day04.in'):
 
 print "answer (part1):", part1
 print "answer (part2):", part2
-

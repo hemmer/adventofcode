@@ -24,7 +24,6 @@ class CircList(object):
     def get_l(self):
         return self.l
 
-
 def hash_pass(l, seq, pos = 0, skip_size = 0):
 
     N = len(l)
@@ -40,7 +39,6 @@ def hash_pass(l, seq, pos = 0, skip_size = 0):
 
 sample = [3, 4, 1, 5]
 assert(hash_pass(range(5), sample)[0] == 12)
-
 
 for line in open("day10.in"):
     seq = line.rstrip('\n').split(',')
@@ -64,4 +62,3 @@ for line in open("day10.in"):
         bit = l[i*16:(i+1)*16]
         xored += format(reduce(lambda i, j: int(i) ^ int(j), bit), '02x')
     print "answer (part 2):", xored
-

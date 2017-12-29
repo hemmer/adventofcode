@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-
 class Scanner():
     def __init__(self, x, height):
         self.height = height
@@ -8,7 +7,6 @@ class Scanner():
 
     def occupied(self, time, delay = 0):
         return (time + delay) % (2 * (self.height - 1)) == 0
-
 
 def get_height(x, scanners):
     for s in scanners:
@@ -29,7 +27,6 @@ def read_input(filename):
         scanners.append(Scanner(pos, height))
     return scanners
 
-
 def solution(scanners, delay = 0):
 
     max_x = max(s.x for s in scanners)
@@ -47,7 +44,6 @@ def solution(scanners, delay = 0):
 
     return severity, caught
 
-
 scanners = read_input("day13.in2")
 assert(solution(scanners)[0] == 24)
 
@@ -55,7 +51,6 @@ for d in range(1, 15):
     severity, caught = solution(scanners, d)
     if not caught: break
 assert(d == 10)
-
 
 scanners = read_input("day13.in")
 print solution(scanners)[0]

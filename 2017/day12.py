@@ -54,7 +54,6 @@ def solution(filename):
 
     return num_in_group_zero, groups
 
-
 assert(solution("day12.in2") == (6, 2))
 
 num_in_group_zero, groups = solution("day12.in")

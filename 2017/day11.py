@@ -35,7 +35,6 @@ def walk(x, y, z, ins):
 
 x, y, z = 0, 0, 0
 
-
 assert(walk(x, y, z, "se,sw,se,sw,sw")[0] == 3)
 assert(walk(x, y, z, "ne,ne,sw,sw")[0] == 0)
 assert(walk(x, y, z, "ne,ne,s,s")[0] == 2)
@@ -43,7 +42,6 @@ assert(walk(x, y, z, "se,sw,se,sw,sw")[0] == 3)
 assert(walk(x, y, z, "ne,ne,ne")[0] == 3)
 assert(walk(x, y, z, "se,se,n,n")[0] == 2)
 assert(walk(x, y, z, "ne,se,sw,nw")[0] == 0)
-
 
 x, y = 0, 0
 for line in open("day11.in"):

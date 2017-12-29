@@ -29,7 +29,6 @@ def print_state(pos, grid):
         print
     print
 
-
 def setgrid(i, j, grid, val):
     N = len(grid)
     i_, j_ = i + N/2, j + N/2
@@ -78,8 +77,6 @@ def update_state(pos, dir, grid, part):
         setgrid(i, j, grid, 1)
         return (dir - 1) % 4, 1
 
-
-
 def load_grid(filename = "day22.in"):
 
     grid = np.zeros((401, 401))
@@ -92,7 +89,6 @@ def load_grid(filename = "day22.in"):
                 setgrid(i - N, N - j, grid, 2)
 
     return grid
-
 
 def solution(part):
     if part == 1: iterations = 10000
@@ -116,7 +112,6 @@ def solution(part):
 
     answer_str = "answer (part %d): %d" % (part, num_infected)
     print answer_str
-
 
 solution(part = 1)
 solution(part = 2)

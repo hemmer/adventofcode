@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-
 def part1(data):
     count, idx, N = 0, 0, len(data)
     while True:
@@ -25,7 +24,6 @@ def part2(data):
     print data
     return count
 
-
 data = [int(l.rstrip('\n')) for l in open('day05.in')]
 assert(part1([0, 3, 0, 1, -3]) == 5)
 print "answer (part1):", part1(data)
@@ -33,4 +31,3 @@ print "answer (part1):", part1(data)
 data = [int(l.rstrip('\n')) for l in open('day05.in')]
 assert(part2([0, 3, 0, 1, -3]) == 10)
 print "answer (part2):", part2(data)
-

@@ -1,7 +1,6 @@
 #!/usr/bin/env python2.7
 
 import numpy as np
-import scipy as sp
 from string import maketrans   # Required to call maketrans function.
 
 class Rule():
@@ -29,7 +28,6 @@ class Rule():
                     return True
 
         return False
-
 
 def divide(grid, rules):
     N = len(grid)
@@ -64,7 +62,6 @@ def apply_rule(sub_grid, rules):
     return None
 
 grid = np.array([[0, 1, 0], [0, 0, 1], [1, 1, 1]])
-
 
 filename = "day21.in"
 rules = []

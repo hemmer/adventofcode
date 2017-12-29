@@ -30,4 +30,3 @@ def sol(data):
 data = [map(int, l.rstrip('\n').split('\t')) for l in open('day06.in')][0]
 assert(sol([0, 2, 7, 0]) == (5, 4))
 print "answer:", sol(data)
-
