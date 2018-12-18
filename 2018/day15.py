@@ -1,5 +1,6 @@
+import sys
+
 import numpy as np
-import os
 
 
 class Coord(object):
@@ -49,21 +50,24 @@ def backtrace(distance, start_i, start_j):
     return get_next(start_i, start_j, path_length), path_length
 
 
-def best_move(grid, i, j, target):
+def best_move(grid, i, j, targets):
     path_distance = np.zeros(grid.shape)
     path_distance[grid != 0] = -1
     path_distance[i, j] = 0
-    path_distance[target.i, target.j] = 0
+
+    for target in targets:
+        path_distance[target.i, target.j] = 0
 
     def recurse_best_path(path, ri, rj, dist):
-        if ri == target.i and rj == target.j:
-            # better than recorded or unset
-            if path[ri, rj] > dist or path[ri, rj] == 0:
-                path[ri, rj] = dist
-                return False
-            else:
-                return True
-        elif path[ri, rj] != 0:
+        for target in targets:
+            if ri == target.i and rj == target.j:
+                # better than recorded or unset
+                if path[ri, rj] > dist or path[ri, rj] == 0:
+                    path[ri, rj] = dist
+                    return False
+                else:
+                    return True
+        if path[ri, rj] != 0:
             if path[ri, rj] > dist:
                 path[ri, rj] = dist
             else:
@@ -87,7 +91,7 @@ def best_move(grid, i, j, target):
     if all_dead_ends:
         return None
     else:
-        return backtrace(path_distance, target.i, target.j)
+        return path_distance
 
 
 def update(i, j, grid, grid_hp):
@@ -102,29 +106,38 @@ def update(i, j, grid, grid_hp):
     if np.count_nonzero(grid == enemy_type) == 0:
         return True
 
-    possible_targets = []
+    at_target, possible_targets = False, []
     for ei in range(1, len(grid) - 1):
-        for ej in range(1, len(grid[0]) - 1):
-            if (grid[ei, ej] == 0 or (ei == i and ej == j)) and \
-                    (grid[ei + 1, ej] == enemy_type or grid[ei - 1, ej] == enemy_type or
-                     grid[ei, ej + 1] == enemy_type or grid[ei, ej - 1] == enemy_type):
-                possible_targets.append(Coord(ei, ej))
-
-    possible_moves = []
-    for target in possible_targets:
-        if target.i == i and target.j == j:
-            possible_moves.clear()
+        if at_target:
             break
+        for ej in range(1, len(grid[0]) - 1):
+            if (grid[ei + 1, ej] == enemy_type or grid[ei - 1, ej] == enemy_type or
+                    grid[ei, ej + 1] == enemy_type or grid[ei, ej - 1] == enemy_type):
+                if ei == i and ej == j:
+                    possible_targets.clear()
+                    at_target = True
+                    break
+                if grid[ei, ej] == 0:
+                    possible_targets.append(Coord(ei, ej))
 
-        result = best_move(grid, i, j, target)
-        if result is not None:
-            move, distance_to_target = result
-            possible_moves.append(Coord(move.i, move.j, distance_to_target))
-    possible_moves.sort()
+    if len(possible_targets) > 0:
+        distance_field = best_move(grid, i, j, possible_targets)
 
-    # if there is a valid target
-    if len(possible_moves) > 0:
-        next_position = possible_moves[0]
+        # if we've got this far (possible_targets > 0) then we aren't already at a
+        # target - if the distance field is None, then we can't reach any targets
+        if distance_field is None:
+            return False
+
+        for target in possible_targets:
+            if distance_field[target.i, target.j] <= 0:
+                dist = grid.shape[0] * grid.shape[1]
+            else:
+                dist = distance_field[target.i, target.j] - 1
+            target.value = dist
+        possible_targets.sort()
+
+        chosen_target = possible_targets[0]
+        next_position, _ = backtrace(distance_field, chosen_target.i, chosen_target.j)
 
         # if the target represents a move from the current square
         if next_position.i != i or next_position.j != j:
@@ -202,6 +215,7 @@ def draw_grid(grid_to_draw):
                 assert False
         print()
     print()
+    sys.stdout.flush()
 
 
 def get_enemies(grid_to_search):
